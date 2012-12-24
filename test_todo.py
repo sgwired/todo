@@ -15,4 +15,17 @@ def test_create_todo():
 
     print "ok - create_todo"
 
+
+def test_get_function():
+    assert todo.get_function('new') == todo.create_todo
+    print "ok - get_function"
+
+
+def test_get_fields():
+    assert (todo.get_fields('new') == ['title', 'description', 'level'])
+    print "ok - test_get_fields"
+
+
 test_create_todo()
+test_get_function()
+test_get_fields()
