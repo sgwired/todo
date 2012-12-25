@@ -15,7 +15,6 @@ def test_create_todo():
 
     print "ok - create_todo"
 
-
 def test_get_function():
     assert todo.get_function('new') == todo.create_todo
     print "ok - get_function"
@@ -26,6 +25,19 @@ def test_get_fields():
     print "ok - test_get_fields"
 
 
+def test_run_command():
+    result = todo.run_command(
+        'test', 
+        {'abcd':'efgh', 'ijkl':'mnop'}
+    )
+    expected = """Command 'test' returned:
+abcd: efgh
+ijkl: mnop"""
+    assert result == expected, \
+        result + " != " + expected
+    print "ok - run_command"
+
 test_create_todo()
 test_get_function()
 test_get_fields()
+test_run_command()

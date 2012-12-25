@@ -12,11 +12,16 @@ def get_input(fields):
 		user_input[field] = raw_input(field + " > ")
 	return user_input
 
+def test(todos, abcd, ijkl):
+	return "Command 'test' returned:\n" + \
+	    "abcd: " + abcd + "\nijkl: " + ijkl
 
 commands = {
 	'new' : [create_todo, ['title', 'description', 'level']],
-
+	'test' : [test, ['abcd', 'ijkl']],
 }
+
+todos = []
 
 def get_function(command_name):
 	return commands[command_name][0]	
@@ -26,15 +31,29 @@ def get_fields(command_name):
 	return commands[command_name][1]
 
 
+
+def run_command(user_input, data=None):
+	user_input = user_input.lower()
+	if user_input not in commands:
+		return user_input + "?" \
+			"I don't know what that command is:"
+	else:
+		the_func = get_function(user_input)
+
+	if data is None:
+		the_fields = get_fields(user_input)
+		data = get_input(the_fields)
+	return the_func(todos, **data)
+
+
 def main_loop():
 	user_input = ""
 	while 1:
-		print run_cammand(user_input)
+		print run_command(user_input)
 		user_input = raw_input("> ")
-
 		if user_input.lower().startswith("quit"):
-			print "Exiting"
+			print "Exiting..."
 			break
 
-	if __name__ == '__main__':
-		main_loop()
+if __name__ == '__main__':
+	main_loop()
